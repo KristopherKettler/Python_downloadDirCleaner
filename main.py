@@ -2,17 +2,17 @@ import os
 import shutil
 
 def sort_downloads():
-    # Pfad zum Download-Ordner unter Windows
+    # download directory path for windows
     download_folder = os.path.join(os.path.expanduser("~"), "Downloads")
 
-    # Ordner erstellen, um Dateien nach Dateiformat zu sortieren
+    # creating directories for each file format
     def create_folders(file_formats):
         for format in file_formats:
             folder_path = os.path.join(download_folder, format)
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
 
-    # Dateien im Download-Ordner auflisten und Dateiformate sammeln
+    # list files and file formats
     def list_files():
         file_formats = set()
         files = os.listdir(download_folder)
@@ -22,7 +22,7 @@ def sort_downloads():
                 file_formats.add(file_extension[1:].lower())  # Remove the dot from extension and convert to lowercase
         return file_formats
 
-    # Dateien nach Dateiformat sortieren und verschieben
+    # sort files by file format and moves them to the appropriate folder
     def move_files(file_formats):
         for format in file_formats:
             format_folder = os.path.join(download_folder, format)
@@ -31,7 +31,6 @@ def sort_downloads():
                     file_path = os.path.join(download_folder, file)
                     shutil.move(file_path, format_folder)
 
-    # Hauptfunktion
     def main():
         file_formats = list_files()
         create_folders(file_formats)
